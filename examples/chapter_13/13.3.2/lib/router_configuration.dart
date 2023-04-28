@@ -11,16 +11,12 @@ class MyRouteInformationParser extends RouteInformationParser<AppRoutePath> {
   Future<AppRoutePath> parseRouteInformation(
     RouteInformation routeInformation,
   ) async {
-    final uri = Uri.tryParse(routeInformation.location ?? '');
+    if (routeInformation.uri.path == AppRoutePath.home.path) {
+      return AppRoutePath.home;
+    }
 
-    if (uri != null) {
-      if (uri.path == AppRoutePath.home.path) {
-        return AppRoutePath.home;
-      }
-
-      if (uri.path == AppRoutePath.random.path) {
-        return AppRoutePath.random;
-      }
+    if (routeInformation.uri.path == AppRoutePath.random.path) {
+      return AppRoutePath.random;
     }
 
     return AppRoutePath.error;
@@ -29,15 +25,15 @@ class MyRouteInformationParser extends RouteInformationParser<AppRoutePath> {
   @override
   RouteInformation? restoreRouteInformation(AppRoutePath configuration) {
     if (configuration.isError) {
-      return RouteInformation(location: AppRoutePath.error.path);
+      return RouteInformation(uri: Uri.parse(AppRoutePath.error.path));
     }
 
     if (configuration.isHomePage) {
-      return RouteInformation(location: AppRoutePath.home.path);
+      return RouteInformation(uri: Uri.parse(AppRoutePath.home.path));
     }
 
     if (configuration.isRandomPage) {
-      return RouteInformation(location: AppRoutePath.random.path);
+      return RouteInformation(uri: Uri.parse(AppRoutePath.random.path));
     }
 
     return null;
