@@ -1,0 +1,70 @@
+name: equations_ci
+
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+      - "examples/chapter_12/restoration"
+      - "examples/chapter_13/13.2.3.1"
+      - "examples/chapter_13/13.3"
+      - "examples/chapter_13/13.3.2"
+      - "examples/chapter_14/scroll_overlay"
+      - "examples/chapter_15/15.1.1"
+      - "examples/chapter_15/15.1.1.1"
+      - "examples/chapter_15/15.1.1.2"
+      - "examples/chapter_16/cp_images"
+      - "examples/chapter_18/18.2"
+      - "examples/chapter_18/18.3.1"
+      - "examples/chapter_18/actions_intents"
+      - "examples/chapter_23/23.2.1"
+
+jobs:
+  examples:
+    strategy:
+      matrix:
+        folder:
+          [
+            "examples/chapter_12/restoration",
+            "examples/chapter_13/13.2.3.1",
+            "examples/chapter_13/13.3",
+            "examples/chapter_13/13.3.2",
+            "examples/chapter_14/scroll_overlay",
+            "examples/chapter_15/15.1.1",
+            "examples/chapter_15/15.1.1.1",
+            "examples/chapter_15/15.1.1.2",
+            "examples/chapter_16/cp_images",
+            "examples/chapter_18/18.2",
+            "examples/chapter_18/18.3.1",
+            "examples/chapter_18/actions_intents",
+            "examples/chapter_23/23.2.1",
+          ]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.8.0
+        with:
+          channel: 'beta'
+
+      - name: Install Dependencies
+        working-directory: ${{ matrix.folder }}
+        run: flutter pub get
+
+      - name: Format
+        working-directory: ${{ matrix.folder }}
+        run: dart format --set-exit-if-changed lib test
+
+      - name: Analyze
+        working-directory: ${{ matrix.folder }}
+        run: flutter analyze lib test
+
+      - name: Run tests
+        working-directory: ${{ matrix.folder }}
+        run: flutter test --no-pub --test-randomize-ordering-seed random
+
+  build:
+    needs: [examples]
+    runs-on: ubuntu-latest
+    steps:
+      - name: noop
+        run: echo 'noop'
