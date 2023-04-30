@@ -10,7 +10,7 @@
 <ul>
  <li>If you find any problem, don't hesitate to open an issue 🐛</li>
  <li>Since Dart 3.0 (or higher) is required to run the code, use Flutter 3.10 or a later version 💻</li>
- <li>Visit our official [webiste](https://fluttercompletereference.com) for more information about the book 🌍</li>
+ <li>Visit our official <a href="https://fluttercompletereference.com">website</a> for more information about the book 🌍</li>
 </ul>
 
 <br>
