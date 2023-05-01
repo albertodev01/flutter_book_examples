@@ -1,4 +1,4 @@
-name: equations_ci
+name: examples_ci
 
 on:
   push:
