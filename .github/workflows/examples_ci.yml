@@ -23,6 +23,7 @@ jobs:
             "examples/chapter_18/18.2",
             "examples/chapter_18/18.3.1",
             "examples/chapter_18/actions_intents",
+            "examples/chapter_21/html_embedding",
             "examples/chapter_23/23.2.1",
           ]
       fail-fast: true
