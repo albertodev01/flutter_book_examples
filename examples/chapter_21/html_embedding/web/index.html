@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="element_embedding">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Element embedding</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+
+  <style>
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    #app_container {
+      width: 500px;
+      height: 250px;
+      margin: 20px;
+      border: 3px solid #0099CC;
+      box-shadow: 0px 8px 24px rgba(0, 0, 0, .25);
+    }
+  </style>
+
+  <script>
+    (function () {
+      window._countChanger = function () {
+        let incrementButton = document.querySelector("#increment");
+
+        incrementButton.addEventListener("click", (event) => {
+          window._counterState.increment();
+        });
+      };
+    }());
+  </script>
+</head>
+<body>
+  <div id="app_container"></div>
+  <input id="increment" value="Increment" type="button" />
+
+  <script>
+    window.addEventListener('load', function(ev) {
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: async function (engineInitializer) {
+          let appRunner = await engineInitializer.initializeEngine({
+            hostElement: document.querySelector("#app_container"),
+          });
+          await appRunner.runApp();
+        },
+      });
+    });
+  </script>
+</body>
+</html>
