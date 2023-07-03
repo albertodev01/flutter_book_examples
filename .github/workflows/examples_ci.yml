@@ -30,9 +30,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2.8.0
-        with:
-          channel: 'master'
+      - uses: subosito/flutter-action@v2
 
       - name: Install Dependencies
         working-directory: ${{ matrix.folder }}
